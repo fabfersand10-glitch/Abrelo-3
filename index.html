@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>💘</title>
+<title>San Valentín 💘</title>
 
 <style>
     * {
@@ -14,16 +14,7 @@
     body {
         margin: 0;
         height: 100vh;
-        background: linear-gradient(180deg, #ff9a9e, #fad0c4);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .screen {
-        width: 100%;
-        max-width: 420px;
-        height: 100%;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -31,48 +22,50 @@
 
     .card {
         background: white;
-        width: 90%;
-        padding: 30px 20px;
-        border-radius: 24px;
+        padding: 28px;
+        border-radius: 20px;
         text-align: center;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        animation: fadeIn 0.4s ease;
+        width: 90%;
+        max-width: 340px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+        animation: aparecer 0.5s ease;
     }
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+    @keyframes aparecer {
+        from { transform: scale(0.85); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
     }
 
     h1 {
         color: #ff4d6d;
-        font-size: 24px;
-        margin-bottom: 30px;
+        margin-bottom: 25px;
+        font-size: 22px;
     }
 
     .buttons {
         position: relative;
-        height: 140px;
+        height: 120px;
     }
 
     button {
-        padding: 16px 28px;
-        font-size: 18px;
+        padding: 14px 26px;
+        font-size: 16px;
         border: none;
-        border-radius: 40px;
+        border-radius: 30px;
+        cursor: pointer;
         position: absolute;
     }
 
     #si {
         background: #38b000;
         color: white;
-        left: 10%;
+        left: 20px;
     }
 
     #no {
         background: #d00000;
         color: white;
-        right: 10%;
+        right: 20px;
     }
 
     .hidden {
@@ -80,7 +73,7 @@
     }
 
     .final {
-        font-size: 22px;
+        font-size: 20px;
         color: #ff4d6d;
     }
 </style>
@@ -92,21 +85,19 @@
     <source src="musica.mp3" type="audio/mpeg">
 </audio>
 
-<div class="screen">
-    <div class="card" id="card">
-        <h1>¿Quieres ser mi San Valentín? 💖</h1>
+<div class="card" id="card">
+    <h1>¿Quieres ser mi San Valentín? 💖</h1>
 
-        <div class="buttons">
-            <button id="si">Sí 💕</button>
-            <button id="no">No 💔</button>
-        </div>
+    <div class="buttons">
+        <button id="si">Sí 💕</button>
+        <button id="no">No 💔</button>
     </div>
+</div>
 
-    <div class="card hidden" id="final">
-        <div class="final">
-            💘 Sabía que dirías que sí 💘<br><br>
-            Feliz San Valentín 🥰
-        </div>
+<div class="card hidden" id="final">
+    <div class="final">
+        💘 Sabía que dirías que sí 💘<br><br>
+        Feliz San Valentín 🥰
     </div>
 </div>
 
@@ -119,20 +110,22 @@
 
     let musicaIniciada = false;
 
-    function moverNo() {
-        const x = Math.random() * 160 - 80;
-        const y = Math.random() * 60 - 30;
+    function moverBoton() {
+        const x = Math.random() * 180 - 90;
+        const y = Math.random() * 80 - 40;
         noBtn.style.transform = `translate(${x}px, ${y}px)`;
     }
 
-    noBtn.addEventListener("touchstart", moverNo);
-    noBtn.addEventListener("click", moverNo);
+    // Para celular: al intentar tocar el botón
+    noBtn.addEventListener("touchstart", moverBoton);
+    noBtn.addEventListener("click", moverBoton);
 
     siBtn.addEventListener("click", () => {
         card.classList.add("hidden");
         final.classList.remove("hidden");
     });
 
+    // Inicia la música al primer toque en pantalla
     document.body.addEventListener("touchstart", () => {
         if (!musicaIniciada) {
             musica.play();
